@@ -1,0 +1,17 @@
+<form [formGroup]="form">
+  <div class="form-group">
+    <label for="nome">Nome</label>
+    <input class="form-control" type="text" formControlName="nome" placeholder="Informe seu nome">        
+  </div>
+
+  <div class="container area d-flex justify-content-center flex-wrap">
+      <button *ngFor="let ponto of pontos"  class="btn btn-info btn-lg" (click)="votar(ponto)">{{ponto}}</button>
+  </div>
+
+  <hr>
+
+  <button class="btn btn-success" type="submit" (click)="confirmar()" [disabled]="!form.valid">OK</button>
+  <button class="btn btn-danger" *ngIf="form.get('ponto').value">{{form.get('ponto').value}}</button>
+  <div class="alert alert-success" role="alert" *ngIf="!form.get('ponto').value && pontoRegistrado"> Ponto registrado </div>
+
+</form>

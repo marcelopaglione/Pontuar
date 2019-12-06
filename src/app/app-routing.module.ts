@@ -1,10 +1,18 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 
-const routes: Routes = [];
+import { HomeComponent } from './home/home.component';
+import { VotarComponent } from './votar/votar.component';
+
+const routes: Routes = [
+  { path: '', pathMatch: 'full', redirectTo: 'pontuar' },
+  { path: 'pontuar', component: VotarComponent },
+  { path: 'home', component: HomeComponent }
+];
+
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  imports: [ RouterModule.forRoot(routes) ],
+  exports: [ RouterModule ]
 })
 export class AppRoutingModule { }

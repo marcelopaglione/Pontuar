@@ -1,0 +1,34 @@
+<div >
+  <div class="" role="group" aria-label="Basic example">
+    <button type="button" class="btn btn-primary" (click)="mostrarEsconder()">
+      {{ mostrar ? "Esconder Pontuação" : "Mostrar Pontuação" }}
+    </button>
+
+    <button type="button" class="btn btn-danger float-right" (click)="zerar()">Reiniciar</button>
+  </div>
+
+</div>
+
+<div class="quadro">
+  <div *ngIf="!cards" class="vazio d-flex justify-content-center align-items-center">
+    É hora de PONTUAR!
+  </div>
+  <div class="d-flex justify-content-center flex-wrap justify-content-around">
+    <div *ngFor="let card of cards" class="card ">
+      <div class="">
+        <div class="d-flex justify-content-center align-items-center">
+          {{ card.nome }}
+        </div>
+      </div>
+      <div *ngIf="mostrar && card.ponto" class="ponto d-flex justify-content-center">
+        {{ card.ponto }}
+      </div>
+      <div *ngIf="!mostrar && card.ponto" class="ponto d-flex justify-content-center">
+        ?
+      </div>
+      <div *ngIf="!mostrar && card.ponto" class="aviso d-flex justify-content-center align-items-end">
+        {{ card.nome }} já pontuou!
+      </div>
+    </div>
+  </div>
+</div>
