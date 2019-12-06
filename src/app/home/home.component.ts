@@ -12,7 +12,7 @@ import { VotarService } from '../votar.service';
 })
 export class HomeComponent implements OnInit {
 
-  cards: null;
+  cards = null;
   mostrar = false;
 
   constructor(private votarService: VotarService) { }
