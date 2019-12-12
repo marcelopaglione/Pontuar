@@ -34,7 +34,7 @@ export class VotarComponent implements OnInit {
     const pontoForm = this.form.get('ponto').value;
 
     this.votarService.findAll().subscribe((list: any[]) => {
-      const filtered = list.filter(element => element.nome === nomeForm);
+      const filtered = this.votarService.jsonToArray(list).filter(element => element.nome === nomeForm);
       let httpObject;
 
       if (filtered && filtered.length === 1) {

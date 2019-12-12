@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   ip: '192.168.15.6',
-  port: '3000'
+  port: '3000',
 };
 
 /*

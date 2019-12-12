@@ -1,7 +1,7 @@
 import { interval } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 
 import { VotarService } from '../votar.service';
 
@@ -10,25 +10,36 @@ import { VotarService } from '../votar.service';
   templateUrl: './home.component.html',
   styleUrls: [ './home.component.scss' ]
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
 
   cards = null;
   mostrar = false;
+  interval: any;
 
   constructor(private votarService: VotarService) { }
 
   ngOnInit() {
 
-    interval(1000).pipe(
-      switchMap(() => this.votarService.findAll()))
-      .subscribe(data => {
-        if (JSON.stringify(data) !== JSON.stringify(this.cards)) {
-          this.cards = data;
+    this.interval = interval(1000).pipe(
+      switchMap(() => this.votarService.findAll())).subscribe(json => {
+
+
+
+        json = this.votarService.jsonToArray(json);
+        console.log(json);
+
+        if (JSON.stringify(json) !== JSON.stringify(this.cards)) {
+          this.cards = json;
         }
-        if (data && data.length === 0) {
+        if (json && json.length === 0) {
           this.cards = null;
         }
       });
+  }
+
+
+  ngOnDestroy(): void {
+    this.interval.unsubscribe();
   }
 
   mostrarEsconder() {
@@ -36,11 +47,13 @@ export class HomeComponent implements OnInit {
   }
 
   zerar() {
-    this.votarService.findAll().subscribe(list => {
-      console.log('deleting', list);
-      list.forEach(element => {
-        this.votarService.deleteById(element.id).subscribe();
-      });
+    this.votarService.findAll().subscribe(json => {
+      console.log('deleting', json);
+      for (const property in json) {
+        if (json.hasOwnProperty(property)) {
+          this.votarService.deleteById(property).subscribe();
+        }
+      }
     });
     this.cards = null;
     this.mostrar = false;

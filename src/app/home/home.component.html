@@ -20,11 +20,12 @@
           {{ card.nome }}
         </div>
       </div>
-      <div *ngIf="mostrar && card.ponto" class="ponto d-flex justify-content-center">
-        {{ card.ponto }}
+      <div *ngIf="mostrar && card.ponto" class="ponto d-flex justify-content-center">        
+        <div *ngIf="card.ponto !== 'café'">{{ card.ponto }} </div>
+        <i *ngIf="card.ponto === 'café'" class="fa fa-coffee"></i>
       </div>
       <div *ngIf="!mostrar && card.ponto" class="ponto d-flex justify-content-center">
-        ?
+        <i class="fa fa-user"></i>
       </div>
       <div *ngIf="!mostrar && card.ponto" class="aviso d-flex justify-content-center align-items-end">
         {{ card.nome }} já pontuou!
