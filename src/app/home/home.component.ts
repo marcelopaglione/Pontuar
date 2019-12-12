@@ -15,35 +15,54 @@ export class HomeComponent implements OnInit, OnDestroy {
   cards = null;
   mostrar = false;
   interval: any;
+  totalMostrarAuto = 2;
 
   constructor(private votarService: VotarService) { }
 
   ngOnInit() {
 
-    this.interval = interval(1000).pipe(
-      switchMap(() => this.votarService.findAll())).subscribe(json => {
-
-
-
-        json = this.votarService.jsonToArray(json);
-        console.log(json);
-
-        if (JSON.stringify(json) !== JSON.stringify(this.cards)) {
-          this.cards = json;
-        }
-        if (json && json.length === 0) {
-          this.cards = null;
-        }
-      });
+    this.interval = this.getFireBaseData();
   }
 
+  private getFireBaseData() {
+    return interval(1000).pipe(
+      switchMap(() => this.votarService.findAll())).subscribe(json => this.showItens(json));
+  }
+
+  private showItens(json: any) {
+    json = this.votarService.jsonToArray(json);
+    console.log(json);
+    if (JSON.stringify(json) !== JSON.stringify(this.cards)) {
+      this.cards = json;
+    }
+    if (json && json.length === 0) {
+      this.cards = null;
+    }
+    if (this.totalMostrarAuto <= json.length) {
+      this.mostrarCartas();
+    }
+  }
 
   ngOnDestroy(): void {
     this.interval.unsubscribe();
   }
 
+  mostrarCartas() {
+    this.mostrar = true;
+    this.interval.unsubscribe();
+  }
+
+  esconderCartas() {
+    this.mostrar = false;
+    this.interval = this.getFireBaseData();
+  }
+
   mostrarEsconder() {
-    this.mostrar = !this.mostrar;
+    if (this.mostrar) {
+      this.esconderCartas();
+    } else {
+      this.mostrarCartas();
+    }
   }
 
   zerar() {
@@ -56,7 +75,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       }
     });
     this.cards = null;
-    this.mostrar = false;
+    this.esconderCartas();
   }
 
   pontuar(data: any) {
@@ -71,13 +90,13 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   remover(data: any) {
-    console.log(data.nome);
     const position = this.cards.indexOf(data.nome);
     if (position > -1) {
       this.cards.splice(position, 1);
     } else {
       console.log(`Não achei ${data.nome} para remover`);
     }
+    this.esconderCartas();
   }
 
 }

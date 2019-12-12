@@ -4,6 +4,8 @@
       {{ mostrar ? "Esconder Pontuação" : "Mostrar Pontuação" }}
     </button>
 
+    <input type="text" [(ngModel)]="totalMostrarAuto">
+    
     <button type="button" class="btn btn-danger float-right" (click)="zerar()">Reiniciar</button>
   </div>
 
@@ -13,7 +15,7 @@
   <div *ngIf="!cards" class="vazio d-flex justify-content-center align-items-center">
     É hora de PONTUAR!
   </div>
-  <div class="d-flex justify-content-center flex-wrap justify-content-around">
+  <div class="d-flex justify-content-center flex-wrap justify-content-around padding-top" [ngClass]="{'completed': mostrar}">
     <div *ngFor="let card of cards" class="card ">
       <div class="">
         <div class="d-flex justify-content-center align-items-center">

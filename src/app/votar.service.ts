@@ -26,7 +26,6 @@ export class VotarService {
 
   deleteById(id: string): Observable<any> {
     console.log('delete', `${this.api}${id}`);
-
     return this.http.delete(`${this.api}${id}.json`);
   }
 
@@ -42,7 +41,7 @@ export class VotarService {
         jsonToArray.push(obj);
       }
     }
-    return jsonToArray;
+    return jsonToArray.sort((a, b) => (a.ponto > b.ponto) ? 1 : -1);
   }
 
 

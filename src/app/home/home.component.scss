@@ -44,3 +44,12 @@
   color: teal;
   font-weight: 600;
 }
+
+.padding-top {  
+  padding-top: 15px;
+}
+
+.completed {
+  transition: background-color 2s ease;
+  background-color: #041d3ad4;
+}
