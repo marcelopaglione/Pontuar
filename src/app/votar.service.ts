@@ -6,19 +6,18 @@ import { Injectable } from '@angular/core';
 @Injectable({ providedIn: 'root' })
 export class VotarService {
 
-  api = 'https://pontuar-da732.firebaseio.com/pontos/'; // `http://${environment.ip}:${environment.port}/pontos`;
+  api = 'https://pontuar-da732.firebaseio.com/pontos/';
 
   constructor(private http: HttpClient) { }
 
-  votar(data: any) {
-    if (!data.id) {
-      console.log('post', this.api, data );
+  votarPost(data: any) {
+    console.log('post', this.api, data);
+    return this.http.post(`${this.api}.json`, data);
+  }
 
-      return this.http.post(`${this.api}.json`, data);
-    } else {
-      console.log('put', this.api, data );
-      return this.http.put(`${this.api}/${data.id}`, data);
-    }
+  votarPut(data: any, id: string) {
+    console.log('put', `${this.api}${id}/ponto.json`);
+    return this.http.put(`${this.api}${id}/ponto.json`, data);
   }
 
   findAll(): Observable<any> {
@@ -35,7 +34,12 @@ export class VotarService {
     const jsonToArray = [];
     for (const property in json) {
       if (json.hasOwnProperty(property)) {
-        jsonToArray.push({ nome: json[ property ].nome, ponto: json[ property ].ponto });
+        const obj = {
+          nome: json[ property ].nome,
+          ponto: json[ property ].ponto,
+          id: property
+        };
+        jsonToArray.push(obj);
       }
     }
     return jsonToArray;

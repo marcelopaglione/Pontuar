@@ -21,7 +21,8 @@ export class VotarComponent implements OnInit {
   ngOnInit() {
     this.form = this.builder.group({
       nome: [ '', Validators.required ],
-      ponto: [ '', Validators.required ]
+      ponto: [ '', Validators.required ],
+      id: [ '' ]
     });
   }
 
@@ -38,21 +39,32 @@ export class VotarComponent implements OnInit {
       let httpObject;
 
       if (filtered && filtered.length === 1) {
-        filtered[0].ponto = pontoForm;
-        httpObject = filtered[0];
+        httpObject = this.put(filtered, pontoForm, httpObject);
       } else {
-        httpObject = {
-          nome: this.form.get('nome').value,
-          ponto: this.form.get('ponto').value
-        };
+        httpObject = this.post(httpObject);
       }
-
-      this.votarService.votar(httpObject).subscribe(() => {
-        this.form.get('ponto').setValue('');
-        this.pontoRegistrado = true;
-      });
 
     });
 
+  }
+
+  private post(httpObject: any) {
+    httpObject = {
+      nome: this.form.get('nome').value,
+      ponto: this.form.get('ponto').value,
+      id: this.form.get('id').value,
+    };
+    this.votarService.votarPost(httpObject).subscribe(() => this.limparForm());
+    return httpObject;
+  }
+
+  private put(filtered: any[], pontoForm: any, httpObject: any) {
+    this.votarService.votarPut(pontoForm, filtered[0].id).subscribe(() => this.limparForm());
+    return httpObject;
+  }
+
+  private limparForm() {
+    this.form.get('ponto').setValue('');
+    this.pontoRegistrado = true;
   }
 }
