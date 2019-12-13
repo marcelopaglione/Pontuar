@@ -1,22 +1,24 @@
 <div >
-  <div class="" role="group" aria-label="Basic example">
-    <button type="button" class="btn btn-primary" (click)="mostrarEsconder()">
-      {{ mostrar ? "Esconder Pontuação" : "Mostrar Pontuação" }}
-    </button>
-
-    <input type="text" [(ngModel)]="totalMostrarAuto">
+  <div class="" role="group" aria-label="Basic example">    
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <button class="btn btn-outline-primary" type="button"  (click)="mostrarEsconder()">{{ mostrar ? "Esconder Pontuação" : "Mostrar Pontuação" }}</button>
+        <button class="btn btn-outline-danger" type="button" (click)="zerar()">Reiniciar</button>
+      </div>
+      <input type="number" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1"  [(ngModel)]="totalMostrarAuto">
+    </div>           
     
-    <button type="button" class="btn btn-danger float-right" (click)="zerar()">Reiniciar</button>
-  </div>
+  </div>  
 
 </div>
 
 <div class="quadro">
+    <h6> Virar automaticamente com <span class="badge badge-secondary">{{totalMostrarAuto}}</span> votos</h6>
   <div *ngIf="!cards" class="vazio d-flex justify-content-center align-items-center">
     É hora de PONTUAR!
   </div>
   <div class="d-flex justify-content-center flex-wrap justify-content-around padding-top" [ngClass]="{'completed': mostrar}">
-    <div *ngFor="let card of cards" class="card ">
+    <div *ngFor="let card of cards" class="card " [ngClass]="{'completed-card': mostrar}">
       <div class="">
         <div class="d-flex justify-content-center align-items-center">
           {{ card.nome }}

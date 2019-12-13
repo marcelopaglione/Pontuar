@@ -15,7 +15,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   cards = null;
   mostrar = false;
   interval: any;
-  totalMostrarAuto = 2;
+  totalMostrarAuto = 8;
 
   constructor(private votarService: VotarService) { }
 
@@ -25,7 +25,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   private getFireBaseData() {
-    return interval(1000).pipe(
+    return interval(2000).pipe(
       switchMap(() => this.votarService.findAll())).subscribe(json => this.showItens(json));
   }
 
@@ -51,6 +51,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.mostrar = true;
     this.interval.unsubscribe();
   }
+
 
   esconderCartas() {
     this.mostrar = false;
