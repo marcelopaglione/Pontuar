@@ -1,60 +1,88 @@
-.nome{
-    background-color: teal;
-    border-style: solid;
-    border-color: #005858;
-    border-radius: 5px;
-    color: white;
-    font-size: 45px;
-    padding: 5px 10px;
-    margin-right: 3px;
-    margin-bottom: 3px;
+/* entire container, keeps perspective */
+.flip-container {
+  perspective: 2000px;
+  
+}
+/* flip the pane when hovered */
+.flip-container:hover .flipper, .flip-container.hover .flipper {
+  // transform: rotateY(180deg);
+}
+
+.hover {  
+  transform: rotateY(180deg);  
+}
+
+.flip-container, .front, .back {
+	width: 300px;
+    height: 170px;
+    margin: 20px 0px;
+}
+
+/* flip speed goes here */
+.flipper {
+	transition: 2s;
+	transform-style: preserve-3d;
+	position: relative;
+}
+
+/* hide back of pane during swap */
+.front, .back {
+	backface-visibility: hidden;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+/* front pane, placed above back */
+.front {
+	z-index: 2;
+	/* for firefox 31 */
+  transform: rotateY(0deg);
+  background-color: teal;
+  
+  border-style: dashed 10px;
+  border: solid #057777 3px;
+}
+
+.card {
+  font-size: 40px;
+  color: white;
+  padding-top: 20px;
+}
+
+/* back, initially hidden pane */
+.back {
+  transform: rotateY(180deg);    
+    background-color: #4a76a2;
+    border-style: dashed 10px;
+    border: solid #2b6aa9 3px;
 }
 
 .ponto{
-  font-size: 160px;
-  padding: 0;
-  margin: 0;
-  line-height: 1;
-}
-
-.aviso {
-  font-size: 10px;
-}
-
-.card{
-  width: 300px;
-  height: 300px;
-  margin-bottom: 20px;
-  background-color: #20adad;
-  padding: 20px;
-  color: white;
-  font-size: 30px;
-  border-style: solid;
-  border-radius: 5px;
-  transition: all 0.5s ease-in-out;
-}
-
-.card:hover {
-  transform: scale(1.05);  
-}
-
-.quadro {
-  background-color: whitesmoke;
-    padding: 40px;
-}
-
-
-.vazio {
-  font-size: 70px;
-  color: teal;
+  font-size: 1.5em;
+  line-height: 50px;
   font-weight: 600;
 }
 
-.padding-top {  
-  padding-top: 15px;
+.restart{ 
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 1);
+    transform: scale(1);
+    animation: pulse 2s infinite;
 }
 
-.completed {
-  transition: background-color 2s ease;
-  background-color: #041d3ad4;
+@keyframes pulse {
+  0% {
+      transform: scale(0.95);
+      box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7);
+  }
+
+  70% {
+      transform: scale(1);
+      box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
+  }
+
+  100% {
+      transform: scale(0.95);
+      box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+  }
 }

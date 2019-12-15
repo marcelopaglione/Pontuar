@@ -1,5 +1,6 @@
 import { interval } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
+import { isNumber } from 'util';
 
 import { Component, OnDestroy, OnInit } from '@angular/core';
 
@@ -20,13 +21,26 @@ export class HomeComponent implements OnInit, OnDestroy {
   constructor(private votarService: VotarService) { }
 
   ngOnInit() {
-
     this.interval = this.getFireBaseData();
   }
 
   private getFireBaseData() {
-    return interval(2000).pipe(
-      switchMap(() => this.votarService.findAll())).subscribe(json => this.showItens(json));
+    return interval(2000)
+      .pipe(switchMap(() => this.votarService.findAll()))
+      .subscribe(json => {
+        this.showItens(json);
+
+        setTimeout(() => {
+          if (
+            this.cards &&
+            this.totalMostrarAuto &&
+            isNumber(this.totalMostrarAuto) &&
+            this.totalMostrarAuto <= this.cards.length) {
+            this.mostrarCartas();
+          }
+        }, 100);
+
+      });
   }
 
   private showItens(json: any) {
@@ -38,8 +52,22 @@ export class HomeComponent implements OnInit, OnDestroy {
     if (json && json.length === 0) {
       this.cards = null;
     }
-    if (this.totalMostrarAuto <= json.length) {
-      this.mostrarCartas();
+
+  }
+
+  classFront() {
+    if (this.mostrar) {
+      return 'front';
+    } else {
+      return 'back';
+    }
+  }
+
+  classBack() {
+    if (this.mostrar) {
+      return 'back';
+    } else {
+      return 'front';
     }
   }
 

@@ -1,39 +1,48 @@
-<div >
-  <div class="" role="group" aria-label="Basic example">    
+<div>
+  <div class="" role="group" aria-label="Basic example">
     <div class="input-group mb-3">
       <div class="input-group-prepend">
-        <button class="btn btn-outline-primary" type="button"  (click)="mostrarEsconder()">{{ mostrar ? "Esconder Pontuação" : "Mostrar Pontuação" }}</button>
-        <button class="btn btn-outline-danger" type="button" (click)="zerar()">Reiniciar</button>
+        <button class="btn btn-outline-primary" type="button"
+          (click)="mostrarEsconder()">{{ mostrar ? "Esconder Pontuação" : "Mostrar Pontuação" }}</button>
+        <button class="btn btn-outline-danger" [ngClass]="{'pulse': mostrar}" type="button" (click)="zerar()">Reiniciar</button>
       </div>
-      <input type="number" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1"  [(ngModel)]="totalMostrarAuto">
-    </div>           
-    
-  </div>  
+      <input type="number" class="form-control" [(ngModel)]="totalMostrarAuto">
+    </div>
+
+  </div>
 
 </div>
 
 <div class="quadro">
-    <h6> Virar automaticamente com <span class="badge badge-secondary">{{totalMostrarAuto}}</span> votos</h6>
+  <h6> Virar automaticamente com <span class="badge badge-secondary">{{totalMostrarAuto}}</span> votos</h6>
   <div *ngIf="!cards" class="vazio d-flex justify-content-center align-items-center">
     É hora de PONTUAR!
   </div>
-  <div class="d-flex justify-content-center flex-wrap justify-content-around padding-top" [ngClass]="{'completed': mostrar}">
-    <div *ngFor="let card of cards" class="card " [ngClass]="{'completed-card': mostrar}">
-      <div class="">
-        <div class="d-flex justify-content-center align-items-center">
-          {{ card.nome }}
+ 
+  <div class="d-flex justify-content-center flex-wrap justify-content-around padding-top"
+    [ngClass]="{'completed': mostrar}">
+
+    <div *ngFor="let card of cards" class="flip-container" >
+
+      <div class="flipper" [ngClass]="{'hover': mostrar}">
+
+          <div class="back card">            
+            <div class="d-flex justify-content-center align-items-center">{{ card.nome }}</div>
+            <div class="d-flex justify-content-center">
+              <div class="ponto">
+                <div *ngIf="card.ponto !== 'café'">{{ card.ponto }} </div>
+                <i *ngIf="card.ponto === 'café'" class="fa fa-coffee"></i>
+
+              </div>
+            </div>            
+          </div>
+
+          <div class="front card">            
+            <div class="d-flex justify-content-center align-items-center">{{ card.nome }}</div>            
+            <div class="ponto d-flex justify-content-center"><i class="fa fa-user"></i></div>
+          </div>
+
         </div>
-      </div>
-      <div *ngIf="mostrar && card.ponto" class="ponto d-flex justify-content-center">        
-        <div *ngIf="card.ponto !== 'café'">{{ card.ponto }} </div>
-        <i *ngIf="card.ponto === 'café'" class="fa fa-coffee"></i>
-      </div>
-      <div *ngIf="!mostrar && card.ponto" class="ponto d-flex justify-content-center">
-        <i class="fa fa-user"></i>
-      </div>
-      <div *ngIf="!mostrar && card.ponto" class="aviso d-flex justify-content-center align-items-end">
-        {{ card.nome }} já pontuou!
-      </div>
     </div>
   </div>
 </div>
