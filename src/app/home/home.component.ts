@@ -4,6 +4,7 @@ import { isNumber } from 'util';
 
 import { Component, OnDestroy, OnInit } from '@angular/core';
 
+import { CookiesService } from '../cookies.service';
 import { VotarService } from '../votar.service';
 
 @Component({
@@ -17,11 +18,23 @@ export class HomeComponent implements OnInit, OnDestroy {
   mostrar = false;
   interval: any;
   totalMostrarAuto = 8;
+  isUnanime = false;
 
-  constructor(private votarService: VotarService) { }
+  constructor(private votarService: VotarService, private cookieService: CookiesService) { }
 
   ngOnInit() {
+
+    const total = parseInt(this.cookieService.getCookie('totalmostrar'), 0);
+    if (total) {
+      this.totalMostrarAuto = total;
+    }
+
+
     this.interval = this.getFireBaseData();
+  }
+
+  setCookies() {
+    this.cookieService.setCookie('totalmostrar', this.totalMostrarAuto + '', 30);
   }
 
   private getFireBaseData() {
@@ -52,7 +65,19 @@ export class HomeComponent implements OnInit, OnDestroy {
     if (json && json.length === 0) {
       this.cards = null;
     }
+    this.calcIsUnanime();
+  }
 
+  private calcIsUnanime() {
+    if (this.cards && this.cards.length > 0) {
+      this.isUnanime = true;
+      const voto1 = (this.cards as any)[ 0 ].ponto;
+      this.cards.forEach(card => {
+        if ((card as any).ponto !== voto1) {
+          this.isUnanime = false;
+        }
+      });
+    }
   }
 
   classFront() {
@@ -108,8 +133,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   pontuar(data: any) {
-    console.log('Pontuar!');
-
     const found = this.cards.find(d => d.nome === data.nome);
     if (found) {
       found.ponto = data.ponto;

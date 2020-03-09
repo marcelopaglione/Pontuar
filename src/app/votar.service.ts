@@ -1,4 +1,5 @@
 import { Observable } from 'rxjs';
+import { share } from 'rxjs/operators';
 
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -12,12 +13,12 @@ export class VotarService {
 
   votarPost(data: any) {
     console.log('post', this.api, data);
-    return this.http.post(`${this.api}.json`, data);
+    return this.http.post(`${this.api}.json`, data).pipe(share());
   }
 
   votarPut(data: any, id: string) {
     console.log('put', `${this.api}${id}/ponto.json`);
-    return this.http.put(`${this.api}${id}/ponto.json`, data);
+    return this.http.put(`${this.api}${id}/ponto.json`, data).pipe(share());
   }
 
   findAll(): Observable<any> {

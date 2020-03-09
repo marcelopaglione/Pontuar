@@ -13,7 +13,7 @@ import { VotarComponent } from './votar/votar.component';
   declarations: [
     AppComponent,
     HomeComponent,
-    VotarComponent
+    VotarComponent,
   ],
   imports: [
     FormsModule,

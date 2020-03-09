@@ -4,14 +4,20 @@
     <input class="form-control" type="text" formControlName="nome" placeholder="Informe seu nome">        
   </div>
 
-  <div class="container area d-flex justify-content-center flex-wrap">
-      <button *ngFor="let ponto of pontos"  class="btn btn-info btn-lg" (click)="votar(ponto)">{{ponto}}</button>
+  <div class="area d-flex justify-content-center flex-wrap teclado">
+      <button *ngFor="let ponto of pontos"  class="btn btn-info btn-lg" (click)="votar(ponto)">
+        <i class="fa" [ngClass]="ponto.icon" aria-hidden="true" *ngIf="ponto.icon"></i>
+        <div *ngIf="!ponto.icon">{{ponto}}</div>
+      </button>
   </div>
 
   <hr>
 
   <button class="btn btn-success" type="submit" (click)="confirmar()" [disabled]="!form.valid">OK</button>
-  <button class="btn btn-danger" *ngIf="form.get('ponto').value">{{form.get('ponto').value}}</button>
+  <button class="btn btn-danger" *ngIf="form.get('ponto').value">
+    <div *ngIf="!form.get('ponto').value.icon">{{form.get('ponto').value}}</div>
+    <div *ngIf="form.get('ponto').value.icon"><i class="fa" [ngClass]="form.get('ponto').value.icon" aria-hidden="true"></i></div>
+  </button>
   <div class="alert alert-success" role="alert" *ngIf="!form.get('ponto').value && pontoRegistrado"> Ponto registrado </div>
 
 </form>

@@ -38,9 +38,7 @@
 	z-index: 2;
 	/* for firefox 31 */
   transform: rotateY(0deg);
-  background-color: teal;
-  
-  border-style: dashed 10px;
+  background-color: teal;    
   border: solid #057777 3px;
 }
 
@@ -53,8 +51,7 @@
 /* back, initially hidden pane */
 .back {
   transform: rotateY(180deg);    
-    background-color: #4a76a2;
-    border-style: dashed 10px;
+    background-color: #4a76a2;    
     border: solid #2b6aa9 3px;
 }
 
