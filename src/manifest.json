@@ -1,0 +1,39 @@
+{
+	"name" : "Pontuar",
+	"short_name" : "Pontuar",
+	"theme_color" : "#1976d2",
+	"background_color" : "#fafafa",
+	"display" : "standalone",
+	"scope" : "/",
+	"start_url" : "https://pontuar-da732.firebaseapp.com/",
+	"icons" : [
+		{
+			"src": "https://pontuar-da732.firebaseapp.com/assets/icons/icon-48.png",
+			"sizes": "48x48"
+		},
+		{
+			"src": "https://pontuar-da732.firebaseapp.com/assets/icons/icon-72.png",
+			"sizes": "72x72"
+		},
+		{
+			"src": "https://pontuar-da732.firebaseapp.com/assets/icons/icon-96.png",
+			"sizes": "96x96"
+		},
+		{
+			"src": "https://pontuar-da732.firebaseapp.com/assets/icons/icon-144.png",
+			"sizes": "144x144"
+		},
+		{
+			"src": "https://pontuar-da732.firebaseapp.com/assets/icons/icon-192.png",
+			"sizes": "192x192"
+		},
+		{
+			"src": "https://pontuar-da732.firebaseapp.com/assets/icons/icon-512.png",
+			"sizes": "512x512"
+		}],
+	"url" : "https://pontuar-da732.firebaseapp.com/pontuar",
+	"lang" : "",
+	"screenshots" : [],
+	"orientation" : "",
+	"generated" : ""
+}

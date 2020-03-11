@@ -80,6 +80,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
   }
 
+
   classFront() {
     if (this.mostrar) {
       return 'front';
