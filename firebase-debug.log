@@ -1,0 +1,87 @@
+[debug] [2020-03-11T15:58:08.517Z] ----------------------------------------------------------------------
+[debug] [2020-03-11T15:58:08.519Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Pichau\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2020-03-11T15:58:08.520Z] CLI Version:   7.10.0
+[debug] [2020-03-11T15:58:08.520Z] Platform:      win32
+[debug] [2020-03-11T15:58:08.520Z] Node Version:  v11.12.0
+[debug] [2020-03-11T15:58:08.521Z] Time:          Wed Mar 11 2020 12:58:08 GMT-0300 (GMT-03:00)
+[debug] [2020-03-11T15:58:08.521Z] ----------------------------------------------------------------------
+[debug] [2020-03-11T15:58:08.521Z] 
+[debug] [2020-03-11T15:58:08.540Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-03-11T15:58:08.541Z] > authorizing via signed-in user
+[debug] [2020-03-11T15:58:08.542Z] [iam] checking project pontuar-da732 for permissions ["firebase.projects.get","firebasedatabase.instances.update","firebasehosting.sites.update"]
+[debug] [2020-03-11T15:58:08.543Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2020-03-11T15:58:08.544Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2020-03-11T15:58:08.802Z] <<< HTTP RESPONSE 200
+[debug] [2020-03-11T15:58:08.809Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/pontuar-da732:testIamPermissions  
+
+[debug] [2020-03-11T15:58:09.936Z] <<< HTTP RESPONSE 200
+[debug] [2020-03-11T15:58:09.938Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/pontuar-da732  
+ 
+[debug] [2020-03-11T15:58:11.260Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Deploying to 'pontuar-da732'...
+[info] 
+[info] i  deploying database, hosting
+[info] i  database: checking rules syntax...
+[debug] [2020-03-11T15:58:11.268Z] >>> HTTP REQUEST PUT https://pontuar-da732.firebaseio.com/.settings/rules.json?dryRun=true  
+ {
+  "rules": {
+    ".read": "auth == null",
+    ".write": "auth == null"
+  }
+}
+
+[debug] [2020-03-11T15:58:12.168Z] <<< HTTP RESPONSE 200
+[info] +  database: rules syntax for database pontuar-da732 is valid
+[debug] [2020-03-11T15:58:12.170Z] >>> HTTP REQUEST POST https://firebasehosting.googleapis.com/v1beta1/sites/pontuar-da732/versions  
+
+[debug] [2020-03-11T15:58:14.154Z] <<< HTTP RESPONSE 200
+[info] i  hosting[pontuar-da732]: beginning deploy...
+[info] i  hosting[pontuar-da732]: found 15 files in dist
+[debug] [2020-03-11T15:58:14.211Z] [hosting] hash cache [ZGlzdA] stored for 15 files
+[debug] [2020-03-11T15:58:14.212Z] [hosting][hash queue][FINAL]
+[debug] [2020-03-11T15:58:14.212Z] >>> HTTP REQUEST POST https://firebasehosting.googleapis.com/v1beta1/sites/pontuar-da732/versions/54f255a0bbe8825e:populateFiles  
+ <request body omitted>
+[debug] [2020-03-11T15:58:15.508Z] <<< HTTP RESPONSE 200
+[debug] [2020-03-11T15:58:15.511Z] [hosting][populate queue][FINAL]
+[debug] [2020-03-11T15:58:15.511Z] [hosting] uploads queued: 3
+[debug] [2020-03-11T15:58:19.351Z] [hosting][upload queue][FINAL]
+[info] +  hosting[pontuar-da732]: file upload complete
+[debug] [2020-03-11T15:58:19.352Z] [hosting] deploy completed after 5197ms
+[info] i  database: releasing rules...
+[debug] [2020-03-11T15:58:19.354Z] >>> HTTP REQUEST PUT https://pontuar-da732.firebaseio.com/.settings/rules.json  
+ {
+  "rules": {
+    ".read": "auth == null",
+    ".write": "auth == null"
+  }
+}
+
+[debug] [2020-03-11T15:58:20.104Z] <<< HTTP RESPONSE 200
+[info] +  database: rules for database pontuar-da732 released successfully
+[debug] [2020-03-11T15:58:20.106Z] [
+  {
+    "config": {
+      "public": "dist",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ],
+      "site": "pontuar-da732"
+    },
+    "site": "pontuar-da732",
+    "version": "sites/pontuar-da732/versions/54f255a0bbe8825e"
+  }
+]
+[info] i  hosting[pontuar-da732]: finalizing version...
+[debug] [2020-03-11T15:58:20.107Z] >>> HTTP REQUEST PATCH https://firebasehosting.googleapis.com/v1beta1/sites/pontuar-da732/versions/54f255a0bbe8825e?updateMask=status  
+
+[debug] [2020-03-11T15:58:21.393Z] <<< HTTP RESPONSE 200
